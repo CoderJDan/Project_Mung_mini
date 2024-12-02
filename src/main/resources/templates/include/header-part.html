@@ -41,6 +41,7 @@
                             <ul class="square-sub-search">
                                 <li><a href="/mung/support/notice">Notice</a></li>
                                 <li><a href="/mung/support/qna">Q&A</a></li>
+                                <li><a href="/mung/support/review/list?category=all#">Review</a></li>
                             </ul>
                         </li>
                         <li><a href="/signup" class="signup-btn" data-bs-toggle="offcanvas"
@@ -78,8 +79,8 @@
 
                             <!-- Email input -->
                             <div data-mdb-input-init class="form-outline mb-4">
-                                <input type="userId" name="userId" id="loginName" class="form-control"/>
-                                <label class="form-label" for="loginName">Email or username</label>
+                                <input type="text" name="userId" id="loginName" class="form-control"/>
+                                <label class="form-label" for="loginName">userId</label>
                             </div>
 
                             <!-- Password input -->
@@ -98,11 +99,6 @@
                                         <label class="form-check-label" for="loginCheck"> Remember me </label>
                                     </div>
                                 </div>
-
-                                <div class="col-md-6 d-flex justify-content-center">
-                                    <!-- Simple link -->
-                                    <a href="#!">Forgot password?</a>
-                                </div>
                             </div>
 
                             <!-- Submit button -->
@@ -112,8 +108,8 @@
 
                             <!-- Register buttons -->
                             <div class="text-center">
-                                <p>Not a member?<a class="nav-link" data-bs-toggle="pill"
-                                                   data-bs-target="#pills-register" role="tab"
+                                <p>Not a member?<a class="nav-link" id="tab-register-sub" data-bs-toggle="pill" data-bs-target="#pills-register"
+                                                   role="tab"
                                                    aria-controls="pills-register" aria-selected="false">You can register here</a>
 
                                 </p>

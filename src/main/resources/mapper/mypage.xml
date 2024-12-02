@@ -11,13 +11,31 @@
         select * from dog where user_id = #{id}
     </select>
     <select id="getresv" parameterType="String" resultType="reservationformypage">
-        select resv_num, user_id, DATE_FORMAT(resv_date, '%Y/%m/%d') AS formatted_resv_date, DATE_FORMAT(start_time,
-        '%H:%i:%s') AS formatted_start_time, DATE_FORMAT(end_time, '%H:%i:%s') AS formatted_end_time, branch_name,
-        status from reservations
+        select
+        resv_num,
+        user_id,
+        DATE_FORMAT(resv_date, '%Y/%m/%d') AS formatted_resv_date,
+        DATE_FORMAT(start_time, '%H:%i:%s') AS formatted_start_time,
+        DATE_FORMAT(end_time, '%H:%i:%s') AS formatted_end_time,
+        branch_name,
+        status
+        from reservations
         where user_id = #{id};
     </select>
     <select id="getdogbyid" parameterType="String" resultType="dog">
         select * from dog where id = #{id}
+    </select>
+    <select id="getresvbyid" parameterType="String" resultType="reservationformypage">
+        select
+        resv_num,
+        user_id,
+        DATE_FORMAT(resv_date, '%Y/%m/%d') AS formatted_resv_date,
+        DATE_FORMAT(start_time, '%H:%i:%s') AS formatted_start_time,
+        DATE_FORMAT(end_time, '%H:%i:%s') AS formatted_end_time,
+        branch_name,
+        status
+        from reservations
+        where resv_num = #{resvNum}
     </select>
 
     <insert id="insertdog" parameterType="dog">
@@ -42,6 +60,24 @@
         <if test="userId != null">#{userId}</if>
         );
     </insert>
+    <update id="profileupdate" parameterType="user">
+        update user
+        set (
+        <if test="id != null">id=#{id},</if>
+        <if test="name != null">name=#{name},</if>
+        <if test="birthDate != null">birth_date=#{birthDate},</if>
+        <if test="breed != null">breed,</if>
+        <if test="weight != null">weight,</if>
+        <if test="gender != null">gender,</if>
+        <if test="imageUrl != null">image_url,</if>
+        <if test="userId != null">user_id</if>
+        )where user_id=#{userId}
+    </update>
+    <update id="updatedog" parameterType="dog">
+        update dog
+        set name=#{name},birth_date=#{birthDate},breed=#{breed},gender=#{gender},image_url=#{imageUrl}
+        where id=#{id}
+    </update>
 
     <!--resv_num, reservation_date, branch_name, start_time, end_time from reservations where user_id = #{id}
             SELECT

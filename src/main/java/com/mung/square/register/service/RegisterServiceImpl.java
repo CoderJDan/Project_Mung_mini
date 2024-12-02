@@ -11,6 +11,7 @@ public class RegisterServiceImpl implements RegisterService {
     private final RegisterDAO registerDAO;
     @Override
     public void register(UserDTO registerUser) {
-        registerDAO.register(registerUser);
+       registerDAO.register(registerUser);
+
     }
 }

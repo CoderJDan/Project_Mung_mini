@@ -15,18 +15,6 @@
   color: var(--primary-green);
 }
 
-.square-content-block {
-  background: var(--white);
-  border: 2px solid var(--light-green);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.square-content-block:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(76, 175, 80, 0.2);
-  border-color: var(--primary-green);
-}
-
 .square-slogan-container {
   background: var(--primary-green);
   border: none;
@@ -335,6 +323,25 @@ body {
     color: #666;
 }
 
+.square-content-block {
+    background: var(--white);
+    border: 2px solid var(--light-green);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.square-content-block:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(76, 175, 80, 0.2);
+    border-color: var(--primary-green);
+}
+
+.square-content-block img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -480,12 +487,7 @@ html, body {
     box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
 }
 
-.square-content-block img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
-}
+
 
 .carousel-item img {
     width: 100%;

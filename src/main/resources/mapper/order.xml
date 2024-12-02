@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mung.square.payment.mapper.OrderMapper">
-    <select id="getLatestReservationByUserId" resultType="resv">
+    <select id="getLatestReservationByUserId" resultType="reservationorder">
         SELECT r.resv_num AS resvNum, u.name AS name, u.phone_number AS phoneNumber, r.branch_name AS branchName,
         r.barcount, r.resv_date AS resvDate, r.start_time AS startTime, r.end_time AS endTime
         FROM User u

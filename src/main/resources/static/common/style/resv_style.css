@@ -1,27 +1,30 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+    font-family: 'Pretendard', Arial, sans-serif;
+    background-color: var(--light-gray);
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* 중앙 정렬 */
-    align-items: center; /* 중앙 정렬 */
-    height: 100vh; /* 전체 화면 높이 */
-    flex-direction: column; /* 헤더와 폼을 세로로 정렬 */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
 }
 
 .contents {
     display: flex;
 }
 
-.container {
-    width: 100%;
-    max-width: 1080px;
+.resv_wrap{
+    margin-top: 450px;
+}
+
+.resv_container{
+    width: 80vw;
     padding: 20px;
-    background-color: white;
+    background-color: var(--white);
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin: 120px 0; /* 헤더가 고정되어 있기 때문에 폼이 겹치지 않도록 여백을 줍니다 */
+    margin: 100px 50px;
 }
 
 .form-container {
@@ -38,12 +41,13 @@ body {
 .location-container img {
     max-width: 100%;
     height: auto;
-    margin-top: 20px; /* 폼 아래에 이미지를 배치하려면 margin-top을 추가 */
+    margin-top: 20px;
 }
 
-h1 {
+.resv_title{
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    color: var(--primary-green);
 }
 
 .form-group {
@@ -54,6 +58,7 @@ label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    color: #333;
 }
 
 input, select {
@@ -68,15 +73,16 @@ button {
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    background-color: lightgreen;
-    color: white;
+    background-color: var(--primary-green);
+    color: var(--white);
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: lightgreen;
+    background-color: var(--grass-green);
 }
 
 ul.time_list {
@@ -106,5 +112,53 @@ li.time_item.half button.btn_time {
 }
 
 li.time_item.half.selected button.btn_time {
-    background-color: greenyellow;
+    background-color: var(--primary-green);
+}
+
+button.time-move {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--primary-green);
+    opacity: 0.7;
+    position: absolute;
+    top: 60px;
+    z-index: 1;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.time-move.time-left {
+    left: 10px;
+}
+
+button.time-move.time-right {
+    right: 10px;
+}
+
+button.time-move:hover {
+    background-color: var(--grass-green);
+    transform: scale(1.2);
+    opacity: 0.9;
+}
+
+.resv_submitbutton{
+    border-radius: 20px 20px 20px 20px;
+}
+
+#reservation-time {
+    background-color: var(--light-gray);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#reservation-time label h3 {
+    margin-bottom: 10px;
+    color: var(--primary-green);
+    font-family: 'Pretendard', Arial, sans-serif;
 }

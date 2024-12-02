@@ -97,3 +97,15 @@ times.forEach((item, index) => {
 });
 
 document.getElementById("reservation-time").appendChild(timeTable);
+
+document.querySelector('.time-move.time-left').addEventListener('click', () => {
+    if (selectedHours.start > 0) {
+        // 왼쪽으로 이동할 수 있는 경우의 로직
+    }
+});
+
+document.querySelector('.time-move.time-right').addEventListener('click', () => {
+    if (selectedHours.end < 24) {
+        // 오른쪽으로 이동할 수 있는 경우의 로직
+    }
+});

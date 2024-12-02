@@ -195,8 +195,10 @@ if (typeof utils === 'undefined') {
 function initAuthForms() {
     const loginTab = document.getElementById('tab-login');
     const registerTab = document.getElementById('tab-register');
+    const registerSubTab = document.getElementById('tab-register-sub');
     const loginPane = document.getElementById('pills-login');
     const registerPane = document.getElementById('pills-register');
+    const registerSubPane = document.getElementById('pills-register');
 
     // 탭 전환 이벤트
     loginTab.addEventListener('click', (e) => {
@@ -206,6 +208,12 @@ function initAuthForms() {
     });
 
     registerTab.addEventListener('click', (e) => {
+        e.preventDefault();
+        showPane(registerPane, loginPane);
+        setActiveTab(registerTab, loginTab);
+    });
+
+    registerSubTab.addEventListener('click', (e) => {
         e.preventDefault();
         showPane(registerPane, loginPane);
         setActiveTab(registerTab, loginTab);
@@ -281,10 +289,11 @@ function handleInputBlur(e) {
     if (inputId === "userId") {
         const queryData = { "userId": inputValue };
         $.ajax({
-            url: "/user/signup/idck",
+            url: "/mypage/user/signup/idck",
             type: "get",
             data: queryData,
             success: function(response) {
+                console.log(response)
                 if (response.exists) {
                     // 아이디가 중복되면 오류 메시지 표시
                     $("#userIdError").text("이미 사용 중인 아이디입니다.").show();
@@ -303,7 +312,7 @@ function handleInputBlur(e) {
     if (inputEmail === "email") {
         const queryData = { "email": inputValue };
         $.ajax({
-            url: "/user/signup/emailck",
+            url: "/mypage/user/signup/emailck",
             type: "get",
             data: queryData,
             success: function(response) {

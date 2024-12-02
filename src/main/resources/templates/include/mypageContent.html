@@ -31,66 +31,6 @@
             </div>
 
             <div class="square5_mypage_content">
-                <div class="square5_mypage_reservation">
-                    <h2><i class="fas fa-calendar-check"></i> 나의 오늘 예약 현황</h2>
-                    <div class="square5_reservation_card">
-                        <div class="square5_reservation_info">
-                            <p><i class="fas fa-ticket-alt"></i> 예약번호:
-                            <p id="currentResvNum"></p>
-                            </p>
-                            <p><i class="fas fa-map-marker-alt"></i> 예약장소:
-                            <p id="currentResvBranchName"></p>
-                            </p>
-                            <p><i class="far fa-clock"></i> 예약일시:
-                            <p id="currentResvDateNTime"></p>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="square5_no_reservation"><!--th:unless="${reservation != null}"-->
-                        <i class="far fa-calendar-times"></i>
-                        <p>현재 예약 내역이 없습니다.</p>
-                        <a href="/mung/resv" class="btn btn-primary">예약하러 가기</a>
-                    </div>
-                    <div class="square5_reservated">
-                        <h2>예약내역</h2>
-                        <div class="square5_reservated_table"></div>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th><i class="fas fa-ticket-alt"></i> 예약 번호</th>
-                                <th><i class="fas fa-map-marker-alt"></i> 예약 장소</th>
-                                <th><i class="far fa-clock"></i> 예약 일시</th>
-                                <th><i class="fas fa-check-circle"></i> 예약 상태</th>
-                                <th> 버튼</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="resv:${reservationlist}">
-                                <td th:text="${resv.resvNum}"></td>
-                                <td th:text="${resv.branchName}"></td>
-                                <td th:text="${resv.formattedResvDate}+' '+${resv.formattedStartTime}+' '+${resv.formattedEndTime}"></td>
-                                <td th:text="${resv.status}">상태</td>
-                                <!-- 조건에 따라 버튼 표시 -->
-                                <td>
-<!--                                    <button th:if="${#dates.parse('yyyy-MM-dd', resv.formattedResvDate).after(#dates.createNow())}"-->
-<!--                                            class="btn btn-danger"-->
-<!--                                            th:onclick="'confirmCancel('+${resv.resvNum}+')'">-->
-<!--                                        취소-->
-<!--                                    </button>-->
-                                    <button class="btn btn-danger"
-                                            th:attr="data-resv-date=${resv.formattedResvDate},data-resv-num=${resv.resvNum}">
-                                        취소
-                                    </button>
-
-                                </td>
-
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-
                 <div class="square5_mypage_dogs">
                     <h2><i class="fas fa-paw"></i> 나의 반려견</h2>
                     <div class="square5_dogs_grid">
@@ -102,7 +42,8 @@
                                    th:onclick="loadDogInfo(this.getAttribute('data-dog-id'))">
                                     <!--                                this.getAttribute('data-dog-id')-->
                                     <div class="square5_dog_image">
-                                        <img th:alt="${dog.name}">
+                                        <img th:src="@{/mypage/}+${dog.imageUrl}" width="50">
+
                                     </div>
                                     <div class="square5_dog_name">
                                         <span th:text="${dog.name}">반려견명</span>
@@ -130,12 +71,14 @@
                                 </h2>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
-                                <a href="/dog/edit" class="square5_edit_btn"><i class="fas fa-edit"></i> 프로필 수정</a>
                             </div>
                             <div class="modal-body">
                                 <div class="square5_dog_image">
-                                    <img alt="반려견 이미지" class="square5_profile_img">
+                                    <!--<img th:src="@{/mypage/+${dog.imageUrl}}" width="50" alt="반려견 이미지" class="square5_profile_img">-->
+                                    <img src="" width="100%" alt="반려견 이미지" class="square5_profile_img"
+                                         id="dogProfileImage">
                                 </div>
+                                <span id="test"></span>
                                 <!--th:src="@{/mypage/}+${dog.imageUrl}"-->
                                 <div class="square5_dog_info">
                                     <div class="square5_info_item">
@@ -174,10 +117,15 @@
                                         <span id="dog-weight">반려견 무게</span>
                                     </div>
                                 </div>
-
-
                             </div>
                             <div class="modal-footer">
+                                <a href="#" id="edit_btn"
+                                   class="square5_edit_btn"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#dogProfileEditModal">
+                                    <i class="fas fa-edit"></i> 프로필 수정
+                                </a>
+
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
                             </div>
@@ -202,11 +150,10 @@
                                             aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    dogRegisterModal
                                     <div class="square5_dog_register_content">
                                         <div class="square5_dog_image_upload">
                                             <div class="square5_image_preview">
-                                                <img id="preview" src="/images/logo.png"
+                                                <img id="preview" src="/mung/images/logo.png"
                                                      alt="반려견 이미지 미리보기">
                                             </div>
                                             <label for="dogImage" class="square5_upload_btn">
@@ -237,7 +184,7 @@
 
                                         <div class="square5_form_group">
                                             <label for="breed">견종</label>
-                                            <select id="breed" name="breed" required>
+                                            <select id="breed" class="breed" name="breed" required>
                                             </select>
                                         </div>
 
@@ -248,7 +195,7 @@
 
                                         <div class="square5_form_group">
                                             <label for="weight">몸무게</label>
-                                            <select id="weight" name="weight" required>
+                                            <select id="weight" name="weight" class="weight" required>
                                                 <option value="" disabled selected>Select weight</option>
                                                 <!-- 기본값으로 선택 불가 옵션 -->
                                                 <!-- 옵션은 JavaScript에서 동적으로 추가됩니다 -->
@@ -267,6 +214,118 @@
 
                     </div>
                 </div>
+                <!-- 반려견 프로필 수정 모달 -->
+                <div class="modal fade" id="dogProfileEditModal" tabindex="-1" aria-labelledby="dogProfileEditLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form class="square5_dog_register_form" action="/mung/mypage/dog/edit" method="POST"
+                                  enctype="multipart/form-data">
+                                <div class="modal-header">
+                                    <h2 class="modal-title fs-5" id="dogProfileEditLabel">
+                                        <i class="fas fa-paw"></i> 반려견 프로필 수정
+                                    </h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="square5_dog_register_content">
+                                        <div class="square5_dog_image_upload">
+                                            <div class="square5_image_preview">
+                                                <img id="editPreview" src="" alt="반려견 이미지 미리보기">
+                                            </div>
+                                            <label for="editDogImage" class="square5_upload_btn">
+                                                <i class="fas fa-camera"></i> 사진 변경
+                                            </label>
+                                            <input type="file" id="editDogImage" name="dogProfileImage" accept="image/*"
+                                                   hidden>
+                                        </div>
+
+                                        <input type="hidden" id="editUserId" name="userId">
+                                        <input type="hidden" id="editDogId" name="editDogId">
+
+                                        <div class="square5_form_group">
+                                            <label for="editName">이름</label>
+                                            <input type="text" id="editName" value="" name="name" required>
+                                        </div>
+
+                                        <div class="square5_form_group">
+                                            <label>성별</label>
+                                            <div class="square5_radio_group">
+                                                <input type="radio" id="editMale" name="gender" value="M" required>
+                                                <label for="editMale">남아</label>
+                                                <input type="radio" id="editFemale" name="gender" value="F">
+                                                <label for="editFemale">여아</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="square5_form_group">
+                                            <label for="editBreed">견종</label>
+                                            <select id="editBreed" class="breed" name="breed" required>
+                                            </select>
+                                        </div>
+
+                                        <div class="square5_form_group">
+                                            <label for="editBirthDate">만난 날</label>
+                                            <input type="date" id="editBirthDate" value="" name="birthDate" required>
+                                        </div>
+
+                                        <div class="square5_form_group">
+                                            <label for="editWeight">몸무게</label>
+                                            <select id="editWeight" class="weight" name="weight" required>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">수정하기</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="square5_mypage_reservation">
+                    <div class="square5_no_reservation" th:unless="${reservationlist != null}">
+                        <i class="far fa-calendar-times"></i>
+                        <p>현재 예약 내역이 없습니다.</p>
+                        <a href="/mung/resv" class="btn btn-primary">예약하러 가기</a>
+                    </div>
+                    <div class="square5_reservated">
+                        <h2>예약내역</h2>
+                        <div class="square5_reservated_table"></div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th><i class="fas fa-ticket-alt"></i> 예약 번호</th>
+                                <th><i class="fas fa-map-marker-alt"></i> 예약 장소</th>
+                                <th><i class="far fa-clock"></i> 예약 일시</th>
+                                <th><i class="fas fa-check-circle"></i> 예약 상태</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="resv:${reservationlist}">
+                                <td class="tdcontent" th:text="${resv.resvNum}"></td>
+                                <td class="tdcontent" th:text="${resv.branchName}"></td>
+                                <td class="tdcontent"
+                                    th:text="${resv.formattedResvDate}+' '+${resv.formattedStartTime}+' '+${resv.formattedEndTime}"></td>
+                                <td class="tdcontent" th:text="${resv.status}">상태</td>
+                                <!-- 조건에 따라 버튼 표시 -->
+                                <td>
+                                    <button class="btn btn-danger"
+                                            th:attr="data-resv-date=${resv.formattedResvDate},data-resv-num=${resv.resvNum}">
+                                        예약 취소
+                                    </button>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
                 <div class="square5_mypage_reviews">
                     <h2><i class="fas fa-star"></i>
@@ -276,12 +335,12 @@
                     <div class="square5_reviews_grid">
                         <div class="square5_review_card">
                             <div class="square5_review_image">
-                                <img src="images/review-placeholder.jpg" alt="리뷰 이미지">
-                            </div>
+                                <img src="" alt="리뷰 이미지">
+                            </div>.jpg
                             <p class="square5_review_date">2024.03.15</p>
                         </div>
                         <div class="square5_add_review_card">
-                            <a href="/review/write">
+                            <a href="support/review/write">
                                 <i class="fas fa-plus"></i>
                                 <p>추가할 수 있는 순간이 더 있어요. 추가하시겠어요?</p>
                             </a>
@@ -291,7 +350,7 @@
             </div>
 
             <div class="square5_mypage_actions">
-                <a href="/profile/edit" class="btn btn-primary"><i class="fas fa-user-edit"></i> 프로필 수정</a>
+                <a href="/mung/mypage/profile/edit" class="btn btn-primary"><i class="fas fa-user-edit"></i> 프로필 수정</a>
             </div>
         </div>
     </div>

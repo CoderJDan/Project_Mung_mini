@@ -1,0 +1,100 @@
+/* 전체 페이지 설정 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: white; /* 흰색 배경 */
+    color: #333;
+}
+
+/* 제목 스타일 */
+h4 {
+    color: #64c869; /* 연두색 포인트 */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 폼 영역 스타일 */
+.form-panel {
+    background-color: #f9f9f9; /* 연한 회색 배경 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+/* 폼 레이블 */
+label.control-label {
+    font-size: 14px;
+    color: #555;
+    font-weight: bold;
+}
+
+/* 입력 필드 */
+.form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 8px;
+    color: #333;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #64c869; /* 포커스 시 연두색 강조 */
+    box-shadow: 0 0 5px rgba(100, 200, 105, 0.5);
+}
+
+/* 텍스트 영역 */
+textarea {
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #64c869;
+    box-shadow: 0 0 5px rgba(100, 200, 105, 0.5);
+}
+
+/* 파일 업로드 필드 */
+input[type="file"] {
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #555;
+}
+
+/* 버튼 스타일 */
+button {
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* 등록 버튼 */
+button.btn-success {
+    background-color: #64c869; /* 연두색 */
+}
+
+button.btn-success:hover {
+    background-color: #50af56; /* 더 진한 연두색 */
+}
+
+/* 취소 버튼 */
+button.btn-default {
+    background-color: #9a9a9a; /* 회색 */
+    color: white;
+}
+
+button.btn-default:hover {
+    background-color: #787878;
+}

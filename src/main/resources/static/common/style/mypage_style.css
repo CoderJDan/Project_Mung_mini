@@ -198,7 +198,24 @@ body {
     text-align: center;
     margin-top: 40px;
 }
+/* 모달이 표시될 때의 배경 스타일 */
+.modal.show {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    display: block;
+}
 
+/* 모달 컨텐츠 스타일 유지 */
+.modal-content {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+/* 모달 백드롭 스타일 수정 */
+.modal-backdrop {
+    display: none !important;
+}
 .btn-primary {
     background-color: var(--primary-green);
     border-color: var(--grass-green);
@@ -267,12 +284,11 @@ body {
     padding: 20px 30px;
 }
 
-.modal .btn-primary {
+.btn-primary {
     background-color: #5cb85c;
     border-color: #4cae4c;
 }
-
-.modal .btn-primary:hover {
+.btn-primary:hover {
     background-color: #449d44;
     border-color: #398439;
 }
@@ -297,4 +313,12 @@ body {
     .square5_dogs_grid, .square5_reviews_grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
-} 
+}
+
+.square5_reservated{
+    text-align: center;
+    align-content: center;
+}
+.tdcontent{
+    align-content: center;
+}

@@ -9,4 +9,10 @@
         SET status = 0
         WHERE status = 1 AND order_num = #{orderNum}
     </update>
+
+    <update id="updateReservationStatus" parameterType="int">
+        UPDATE reservations
+        SET status = "예약취소"
+        WHERE status = "예약완료" AND resv_num = #{orderNum}
+    </update>
 </mapper>

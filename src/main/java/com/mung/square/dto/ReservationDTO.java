@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Alias("resv")
+@Alias("reservationorder")
 public class ReservationDTO {
     private int resvNum;
     private String branchName;

@@ -13,4 +13,9 @@ public class UpdateServiceImpl implements UpdateService{
     public boolean updateStatus(int orderNum) {
         return updateDAO.updateStatus(orderNum);
     }
+
+    @Override
+    public int updateReservationStatus(int orderNum) {
+        return updateDAO.updateReservationStatus(orderNum);
+    }
 }

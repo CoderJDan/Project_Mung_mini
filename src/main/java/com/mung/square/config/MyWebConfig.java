@@ -15,7 +15,7 @@ public class MyWebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //특정path로 요청하면 실제 파일이 저장된 위치를 연결해서 리소스를 가져올 수 있도록 처리
         registry.addResourceHandler("/mypage/**")   //   /download로 하는 모든 요청에 대해서
-                .addResourceLocations("file:/C:/fullstack7/work/intellijwork/Project_Mung_mini/src/main/resources/static/imagesdog") ; //실제위치
+                .addResourceLocations("file:/C:/fullstack7/downloads") ; //실제위치
        /* C:\fullstack7\work\intellijwork\Project_Mung_mini\src\main\resources\static\images\dog*/
     }
 }

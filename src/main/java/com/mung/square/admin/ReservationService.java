@@ -1,5 +1,6 @@
 package com.mung.square.admin;
 
+import com.mung.square.dto.Reservation;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

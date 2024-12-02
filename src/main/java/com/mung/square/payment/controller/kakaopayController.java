@@ -1,11 +1,7 @@
 package com.mung.square.payment.controller;
 
 import com.mung.square.dto.*;
-import com.mung.square.payment.dao.PaymentDAO;
-import com.mung.square.payment.dao.RefundDAO;
-import com.mung.square.payment.dao.UpdateDAO;
 import com.mung.square.payment.service.*;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -96,6 +91,7 @@ public class kakaopayController {
         int totalPrice = refundDTO.getTotalPrice();
 
         updateService.updateStatus(orderNum);
+        updateService.updateReservationStatus(orderNum);
 
         CancelResponse kakaocancelResponse = kakaoPayService.payCancel(tid, totalPrice);
         ResponseEntity<CancelResponse> response = new ResponseEntity<>(kakaocancelResponse, HttpStatus.OK);

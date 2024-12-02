@@ -1,4 +1,4 @@
-package com.mung.square.admin;
+package com.mung.square.dto;
 
 public class Reservation {
     private String id;

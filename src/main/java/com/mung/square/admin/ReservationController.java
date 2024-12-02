@@ -1,5 +1,7 @@
 package com.mung.square.admin;
 
+import com.mung.square.dto.Reservation;
+import com.mung.square.dto.UserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/reservations")
+@SessionAttributes("user")
 public class ReservationController {
 
     private final ReservationService reservationService;
@@ -20,12 +23,8 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping
-    public String listReservations(
-            @RequestParam(required = false) String status,
-            @RequestParam(required = false) String dateRange,
-            Model model
-    ) {
+    @GetMapping("")
+    public String listReservations(@RequestParam(required = false) String status, @RequestParam(required = false) String dateRange, @ModelAttribute("user") UserDTO user, Model model) {
         String startDate = null;
         String endDate = null;
 
@@ -51,7 +50,7 @@ public class ReservationController {
         List<Reservation> reservations = reservationService.getFilteredReservations(status, startDate, endDate);
         model.addAttribute("reservations", reservations);
 
-        return "admin"; // 필터링된 데이터를 admin.html에 렌더링
+        return "include/admin"; // 필터링된 데이터를 admin.html에 렌더링
     }
 
     @PostMapping("/updateStatus")

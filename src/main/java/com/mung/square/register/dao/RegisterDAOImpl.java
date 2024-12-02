@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class RegisterDAOImpl implements RegisterDAO {
-    private final RegisterMapper loginMapper;
+    private final RegisterMapper mapper;
     public void register(UserDTO registerUser) {
-        loginMapper.register(registerUser);
+         mapper.register(registerUser);
     }
 
 }

@@ -9,7 +9,13 @@ import java.util.List;
 public interface MyPageDAO {
     UserDTO getUser(String id);
     List<DogDTO> getDogList(String id);
-    List<ReservationForMypageDTO> getResv(String id);
     DogDTO getDogById(String id);
     void insertDog(DogDTO dog);
+
+    List<ReservationForMypageDTO> getResv(String id);
+
+    ReservationForMypageDTO getResvByNum(String id);
+    void profileupdate(UserDTO user);
+    void updateDog(DogDTO dog);
+
 }

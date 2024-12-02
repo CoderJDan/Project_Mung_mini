@@ -1,5 +1,6 @@
 package com.mung.square.admin;
 
+import com.mung.square.dto.Reservation;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

@@ -1,0 +1,205 @@
+/* 리뷰 페이지 전용 스타일 */
+#review-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* 연한 배경색 */
+    color: #333;
+}
+
+/* 헤더 스타일 (기존 헤더 구조를 유지하며 수정 최소화) */
+#review-page header {
+    background-color: #64c869; /* 연두색 */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 2px solid #50af56;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 네비게이션 메뉴 (헤더 내 충돌 방지) */
+#review-page nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #64c869;
+}
+
+#review-page nav ul li {
+    padding: 10px 15px;
+}
+
+#review-page nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+#review-page nav ul li a:hover {
+    color: #e0ffe1; /* 밝은 연두색 */
+}
+
+/* 테이블 스타일 */
+#review-page table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#review-page th, #review-page td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#review-page th {
+    background-color: #64c869;
+    color: white;
+    font-weight: bold;
+}
+
+#review-page td a {
+    color: #64c869;
+    text-decoration: none;
+}
+
+#review-page td a:hover {
+    text-decoration: underline;
+}
+
+/* 카테고리 선택 영역 */
+#category-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#category-section label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    color: #333;
+}
+
+#category-section select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 14px;
+    color: #333;
+}
+
+/* 검색 및 글쓰기 버튼 */
+#review-page form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px auto;
+}
+#write-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #64c869; /* 연두색 배경 */
+    color: white; /* 흰색 텍스트 */
+    border-radius: 5px; /* 부드러운 모서리 */
+    text-decoration: none; /* 텍스트 밑줄 제거 */
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+    border: 2px solid transparent; /* 보더 추가 */
+}
+
+#write-button:hover {
+    background-color: #50af56; /* 어두운 연두색으로 변경 */
+    transform: scale(1.05); /* 살짝 확대 효과 */
+    border: 2px solid #3e8f42; /* 보더 색상 강조 */
+}
+
+#review-page form input[type="text"],
+#review-page form select,
+#review-page form input[type="submit"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#review-page form input[type="submit"] {
+    background-color: #64c869;
+    color: white;
+    cursor: pointer;
+}
+
+#review-page form input[type="submit"]:hover {
+    background-color: #50af56;
+}
+
+/* 푸터 */
+#review-page footer {
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+    border-top: 2px solid #64c869;
+}
+
+/* 테이블 컨테이너 스타일 */
+#review-table-container {
+    width: 90%; /* 페이지 중앙에 넓게 정렬 */
+    margin: 20px auto; /* 상하 중앙 정렬 */
+    background-color: #ffffff; /* 흰 배경 */
+    padding: 20px; /* 내부 여백 */
+    border: 1px solid #ddd; /* 테두리 */
+    border-radius: 10px; /* 둥근 모서리 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+/* 테이블 스타일 */
+#review-table-container table {
+    width: 100%; /* 테이블 너비를 컨테이너에 맞춤 */
+    border-collapse: collapse; /* 테두리 겹침 제거 */
+    text-align: left; /* 기본 텍스트 정렬 */
+}
+
+#review-table-container th,
+#review-table-container td {
+    padding: 15px; /* 셀 내부 여백 */
+    border: 1px solid #ddd; /* 셀 테두리 */
+}
+
+#review-table-container th {
+    background-color: #64c869; /* 헤더 배경색 */
+    color: white; /* 헤더 텍스트 색상 */
+    font-weight: bold;
+    text-align: center; /* 헤더 중앙 정렬 */
+}
+
+#review-table-container td {
+    background-color: #f9f9f9; /* 연한 회색 배경 */
+}
+
+#review-table-container tr:nth-child(even) td {
+    background-color: #ffffff; /* 짝수 행은 흰 배경 */
+}
+
+/* 빈 리스트 메시지 */
+#review-table-container .empty-message {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+    padding: 50px 0; /* 충분한 공간 확보 */
+}

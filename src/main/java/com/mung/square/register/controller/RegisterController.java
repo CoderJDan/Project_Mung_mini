@@ -14,11 +14,14 @@ import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @RequiredArgsConstructor
+@SessionAttributes("user")
 public class RegisterController {
     private final RegisterService registerService;
+
     @PostMapping("/register")
     public String register(UserDTO registerUser, Model model) {
-        registerService.register(registerUser);
+        System.out.println("스프링이 제공하는 로그인---------------------------------------");
+         registerService.register(registerUser);
         return "redirect:/";
     }
 

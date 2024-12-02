@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mung.square.review.ReviewMapper">
+    <!--board테이블에 게시글 등록
+        Mapper인터페이스에서 전달되는 BoardDTO의 멤버변수의 값들을 꺼내서 tbboard테이블에 저장
+    -->
+    <!--게시글 insert-->
+    <insert id="insert" parameterType="review">
+        insert into tbreview
+        values(null,#{id},sysdate(),#{title},#{content},#{category})
+    </insert>
+    <!--첨부파일이 여러 개가 insert
+    last_insert_id()는 현재 auto_increment된 값을 가져온다.
+    -->
+<!--    <insert id="fileinsert" parameterType="java.util.List">-->
+<!--        insert into board_file values-->
+<!--        <foreach collection="list" item="file" separator=",">-->
+<!--            (#{file.boardFileNo},last_insert_id(),#{file.boardNo},#{file.originalFilename},#{file.storeFilename})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
+    <insert id="fileinsert" parameterType="java.util.List">
+        insert into review_file values
+        <foreach collection="list" item="file" separator=",">
+            (#{file.reviewFileNo},last_insert_id(),#{file.originalFilename},#{file.storeFilename})
+        </foreach>
+
+    </insert>
+    <select id="selectall" resultType="review">
+        select * from tbreview
+    </select>
+    <select id="categorySelect" parameterType="String" resultType="review">
+        select * from tbreview where category = #{category}
+    </select>
+    <!--where절이 동적으로 생성
+        where절이 만들어지지 않는 상황이면 where이 추가되지 않는다.
+        -->
+    <select id="dynamicsearch" resultType="review" parameterType="Map">
+        select * from tbreview
+
+        <where>
+            <if test="tag.equals('id') and data!=''">
+
+                <!--조건이 만족하면 실행할 sql문을 정의-->
+                id like concat('%',#{data},'%')
+            </if>
+            <if test="tag.equals('title') and data!=''">
+                <!--조건이 만족하면 실행할 sql문을 정의-->
+                id like concat('%',#{data},'%')
+            </if>
+            <if test="tag.equals('content') and data!=''">
+            <!--조건이 만족하면 실행할 sql문을 정의-->
+            id like concat('%',#{data},'%')
+            </if>
+
+            <if test="tag=='write_data'and data!=''">
+                <!--조건이 만족하면 실행할 sql문을 정의-->
+                <!--
+                    <![CDATA[
+                        CDATA섹션 안에 추가하는 것들은 모두 문자열로 취급한다.
+                        태그로 인식하지 않는다.
+                    ]]
+                -->
+                <![CDATA[
+                write_date <= #{data}
+                ]]>
+            </if>
+        </where>
+    </select>
+    <select id="read" resultType="review" parameterType="String">
+            select * from tbreview where review_no = #{review_no}
+    </select>
+    <update id="update" parameterType="review">
+        update tbreview
+        set title = #{title},content=#{content},category=#{category}
+        where review_no=#{reviewNo}
+    </update>
+    <delete id="delete" parameterType="String">
+        DELETE FROM tbreview WHERE review_no = #{reviewNo}
+    </delete>
+
+</mapper>

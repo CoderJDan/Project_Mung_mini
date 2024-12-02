@@ -13,4 +13,9 @@ public class UpdateDAOImpl implements UpdateDAO{
     public boolean updateStatus(int orderNum) {
         return updateMapper.updatePaymentStatus(orderNum) > 0;
     }
+
+    @Override
+    public int updateReservationStatus(int orderNum) {
+        return updateMapper.updateReservationStatus(orderNum);
+    }
 }

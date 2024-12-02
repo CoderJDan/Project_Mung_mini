@@ -1,58 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="ko"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/mainLayout}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>멍 스퀘어</title>
     <link rel="icon" href="/mung/images/logo.png">
     <link rel="stylesheet" href="/mung/common/style/main_style.css">
-    <link rel="stylesheet" href="/mung/common/style/resv_style.css">
+    <link rel="stylesheet" href="/mung/common/style/resv_style.css"></link>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60afe906424b612470250c46b5008b53"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services"></script>
-    <script src="/mung/common/script/main_script.js"></script>
-    <script src="/mung/common/script/resv_script.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
+    <link rel="stylesheet" href="/mung/common/style/qna_style.css">
 </head>
 <body>
-    <div layout:fragment="content">
-        <!--예약폼 + 지점선택 -->
-        <div class="container">
+    <div class="resv_wrap" layout:fragment="content">
+
+        <div class="resv_container">
             <div class="wrap">
                 <div>
-                    <h1>예약</h1>
+                    <h2 class="resv_title">Reservation</h2>
                 </div>
-                <!--    <h1> &lt;!&ndash;style="position: fixed; left: 50%; transform: translateX(-50%);"&ndash;&gt;예약</h1>-->
-                <!-- 지점 선택 폼 -->
                 <div class="contents">
                     <div class="location-container">
                         <h3 style="text-align: start;">지점 선택</h3>
                         <form>
-                            <select id="location" name="location">
-                                <option value="gimpo">김포</option>
-                                <option value="yongin">용인</option>
-                                <option value="yangju">양주옥정</option>
-                                <option value="hwaseong">화성</option>
-                                <option value="illsan">일산</option>
+                            <select id="location" name="location" onchange="changeImage()">
+                                <option value="김포">김포</option>
+                                <option value="용인">용인</option>
+                                <option value="양주옥정">양주옥정</option>
+                                <option value="화성">화성</option>
+                                <option value="일산">일산</option>
                             </select>
                         </form>
-                        <img alt="서울 이미지" id="location-image" src="/mung/images/seoul.jpg">
+                        <img alt="로고 이미지" id="location-image" src="/mung/images/logo.png">
                     </div>
                     <!-- 예약 폼 -->
                     <div class="form-container">
                         <!--<h1>예약</h1>-->
                         <form id="reservation-form">
                             <div class="form-group">
-                                <label for="name"><h3>이름</h3></label>
-                                <input id="name" name="name" placeholder="이름을 입력하세요" required type="text">
+                                <label for="resv_name"><h3>예약자명</h3></label>
+                                <input id="resv_name" name="name" placeholder="예약자명을 입력하세요" required type="text">
                             </div>
 
                             <div class="form-group">
@@ -65,16 +59,334 @@
                                 <input id="date" name="date" required type="date">
                             </div>
 
-                            <div class="form-group" id="reservation-time">
+                            <div class="form-group" id="reservation-time" style="position: relative;">
                                 <label for="reservation-time"><h3>예약 시간</h3></label>
+                                <button type="button" class="time-move time-left">←</button>
+                                <button type="button" class="time-move time-right">→</button>
                             </div>
 
-                            <a href="/mung/kakaopay"><button type="button">예약하기</button></a>
+                            <button class="resv_submitbutton" type="submit">예약하기</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- 시간선택 바 스크립트-->
+        <script type="text/javascript">
+            let selectedHours = {
+                start: -1,
+                startIndex: -1,
+                end: -1,
+                endIndex: -1,
+            };
+            let selectedDate = new Date();
+            document.getElementById('reservation-form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const name = document.getElementById('resv_name').value;
+                const phone = document.getElementById('phone').value;
+                const date = document.getElementById('date').value;
+                const loc = document.getElementById('location').value;
+
+                if (name && phone && date && loc) {
+
+                    //ajax -> 데이터 전송
+                    //type : post
+                    // success
+                    // -> post mapping 컨트롤러 작동
+                    // 컨트롤러에서 insert 문 작동되도록 하고
+
+
+                    location.href = "/mung/kakaopay";
+
+                    /*alert(`예약완료! \n예약자명: ${name} \n연락처: ${phone} \n예약날짜: ${date} \n예약지점: ${loc}
+                \n예약시간: ${times[selectedHours.startIndex].time} `);*/
+
+
+
+                } else {
+                    alert('모든 필드를 입력해 주세요.');
+                }
+
+
+            });
+
+            // 시간 선택 테이블 동적 생성
+            const timeTable = document.createElement("ul");
+            timeTable.classList.add('time_list');
+            const times = [
+                {time: '00시', selected: false, noTime: false, realHour: 0},
+                {time: ' ', selected: false, noTime: false, realHour: 0.5},
+                {time: '01시', selected: false, noTime: false, realHour: 1},
+                {time: ' ', selected: false, noTime: false, realHour: 1.5},
+                {time: '02시', selected: false, noTime: false, realHour: 2},
+                {time: ' ', selected: false, noTime: false, realHour: 2.5},
+                {time: '03시', selected: false, noTime: false, realHour: 3},
+                {time: ' ', selected: false, noTime: false, realHour: 3.5},
+                {time: '04시', selected: false, noTime: false, realHour: 4},
+                {time: ' ', selected: false, noTime: false, realHour: 4.5},
+                {time: '05시', selected: false, noTime: false, realHour: 5},
+                {time: ' ', selected: false, noTime: false, realHour: 5.5},
+                {time: '06시', selected: false, noTime: false, realHour: 6},
+                {time: ' ', selected: false, noTime: false, realHour: 6.5},
+                {time: '07시', selected: false, noTime: false, realHour: 7},
+                {time: ' ', selected: false, noTime: false, realHour: 7.5},
+                {time: '08시', selected: false, noTime: false, realHour: 8},
+                {time: ' ', selected: false, noTime: false, realHour: 8.5},
+                {time: '09시', selected: false, noTime: false, realHour: 9},
+                {time: ' ', selected: false, noTime: false, realHour: 9.5},
+                {time: '10시', selected: false, noTime: false, realHour: 10},
+                {time: ' ', selected: false, noTime: false, realHour: 10.5},
+                {time: '11시', selected: false, noTime: false, realHour: 11},
+                {time: ' ', selected: false, noTime: false, realHour: 11.5},
+                {time: '12시', selected: false, noTime: false, realHour: 12},
+                {time: ' ', selected: false, noTime: false, realHour: 12.5},
+                {time: '13시', selected: false, noTime: false, realHour: 13},
+                {time: ' ', selected: false, noTime: false, realHour: 13.5},
+                {time: '14시', selected: false, noTime: false, realHour: 14},
+                {time: ' ', selected: false, noTime: false, realHour: 14.5},
+                {time: '15시', selected: false, noTime: false, realHour: 15},
+                {time: ' ', selected: false, noTime: false, realHour: 15.5},
+                {time: '16시', selected: false, noTime: false, realHour: 16},
+                {time: ' ', selected: false, noTime: false, realHour: 16.5},
+                {time: '17시', selected: false, noTime: false, realHour: 17},
+                {time: ' ', selected: false, noTime: false, realHour: 17.5},
+                {time: '18시', selected: false, noTime: false, realHour: 18},
+                {time: '', selected: false, noTime: true, realHour: 18.5},
+                {time: '19시', selected: false, noTime: false, realHour: 19},
+                {time: '', selected: false, noTime: true, realHour: 19.5},
+                {time: '20시', selected: false, noTime: false, realHour: 20},
+                {time: '', selected: false, noTime: true, realHour: 20.5},
+                {time: '21시', selected: false, noTime: false, realHour: 21},
+                {time: '', selected: false, noTime: true, realHour: 21.5},
+                {time: '22시', selected: false, noTime: false, realHour: 22},
+                {time: '', selected: false, noTime: true, realHour: 22.5},
+                {time: '23시', selected: false, noTime: false, realHour: 23},
+                {time: '', selected: false, noTime: true, realHour: 23.5},
+                // {time: '24시', selected: false, noTime: false, realHour: 24}
+            ]; //json으로 관리(시간되면)//
+
+            let dt = new Date();
+            //현재 시간을 받아줌(시간,분 까지만)
+            const date = dt.getDay(); //날짜를 받아 줌//
+            const minute = dt.getMinutes();
+            let hour = dt.getHours();
+            if (minute > 30) {
+                hour += 0.5;
+            }
+            let indexRange = [hour * 2, hour * 2 + 16];
+
+            // 시간 항목 생성
+
+            //  20241127    16           18
+            //  상세날짜,시간(클릭 시작),시간(클릭 끝) => 고객별 중복선택 방지를 위함
+            for (let outerIndex = indexRange[0]; outerIndex < indexRange[1] && outerIndex < times.length; outerIndex++) {
+                let index = outerIndex % times.length;
+                // console.log(index)
+                const item = times[index];
+                const listItem = document.createElement('li');
+                listItem.classList.add('time_item', 'half');
+                if (item.selected) {
+                    listItem.classList.add('selected');
+                }
+
+                if (item.noTime) {
+                    listItem.classList.add('no_time');
+                }
+
+                const timeText = document.createElement('span');
+                timeText.classList.add('time_text');
+                timeText.textContent = item.time;
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.classList.add('btn_time', 'color10');
+
+                // 클릭 이벤트 처리
+                listItem.addEventListener('click', () => {
+                    let currentClickedTime = times[index].realHour;
+
+                    if (selectedHours.start < 0) {
+                        selectedHours.start = currentClickedTime;
+                        selectedHours.startIndex = index;
+                        // listItem.classList.add('selected');
+                    } else if (selectedHours.end < 0) {
+                        selectedHours.end = currentClickedTime;
+                        selectedHours.endIndex = index;
+                        // document.querySelectorAll("li.time_item.half").forEach((v, i) => {
+                        //     if (i >= selectedHours.startIndex && i <= selectedHours.endIndex)
+                        //         v.classList.add('selected');
+                        // });
+                    } else {
+                        selectedHours.start = currentClickedTime;
+                        selectedHours.startIndex = index;
+                        selectedHours.end = -1;
+                        selectedHours.endIndex = -1;
+                        // document.querySelectorAll("li.time_item.half").forEach((v) => {
+                        //     v.classList.remove('selected');
+                        // });
+                        // listItem.classList.add('selected');
+                    }
+                    renderTimeList(...indexRange);
+                    console.log(times[index].realHour + " 누름");
+                });
+
+                // 생성된 요소들을 리스트 아이템에 추가
+                listItem.appendChild(timeText);
+                listItem.appendChild(button);
+
+                // <ul>에 리스트 아이템을 추가
+                timeTable.appendChild(listItem);
+
+            }
+            document.getElementById("reservation-time").appendChild(timeTable);
+
+            // 날짜 변경 시, 그 날짜가 오늘 이후라면 0시부터
+            document.getElementById("date").addEventListener("change", (e) => {
+                let clickedDate = new Date(e.target.value);
+                selectedDate = clickedDate;
+                let ulElement = document.querySelector("ul.time_list");
+                selectedHours = {
+                    start: -1,
+                    startIndex: -1,
+                    end: -1,
+                    endIndex: -1,
+                };
+                // ulElement.innerHTML = '';
+
+                // 오늘보다 더 뒤인 경우: 0시부터
+                // 오늘인 경우: 오늘 시간부터
+                let startIndex = (clickedDate > dt) ? 0 : hour * 2;
+                indexRange = [startIndex, startIndex + 16];
+                renderTimeList(...indexRange);
+            })
+
+            function renderTimeList(startIndex, endIndex) {
+                let ulElement = document.querySelector("ul.time_list");
+                ulElement.innerHTML = '';
+
+                for (let innerIndex = startIndex; innerIndex < endIndex && innerIndex < times.length; innerIndex++) {
+                    let index = innerIndex % times.length;
+                    const item = times[index];
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('time_item', 'half');
+
+                    // 시작점과 정확히 일치하면 selected 넣어준다
+                    if (selectedHours.startIndex >= 0
+                        && item.realHour === selectedHours.start)
+                        listItem.classList.add('selected');
+
+                    if (selectedHours.startIndex >= 0 && selectedHours.endIndex >= 0
+                        && item.realHour >= selectedHours.start
+                        && item.realHour <= selectedHours.end)
+                        listItem.classList.add('selected');
+
+
+                    if (item.noTime) {
+                        listItem.classList.add('no_time');
+                    }
+
+                    const timeText = document.createElement('span');
+                    timeText.classList.add('time_text');
+                    timeText.textContent = item.time;
+
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.classList.add('btn_time', 'color10');
+
+                    // 클릭 이벤트 처리
+                    listItem.addEventListener('click', () => {
+                        let currentClickedTime = times[index].realHour;
+
+                        if (selectedHours.start < 0) {
+                            selectedHours.start = currentClickedTime;
+                            selectedHours.startIndex = index;
+                            // listItem.classList.add('selected');
+                        } else if (selectedHours.end < 0) {
+                            selectedHours.end = currentClickedTime;
+                            selectedHours.endIndex = index;
+                            // document.querySelectorAll("li.time_item.half").forEach((v, i) => {
+                            //     if (i >= selectedHours.startIndex && i <= selectedHours.endIndex)
+                            //         v.classList.add('selected');
+                            // });
+                            console.log("시간 정해짐", selectedHours)
+                        } else {
+                            selectedHours.start = currentClickedTime;
+                            selectedHours.startIndex = index;
+                            selectedHours.end = -1;
+                            selectedHours.endIndex = -1;
+                            // document.querySelectorAll("li.time_item.half").forEach((v) => {
+                            //     v.classList.remove('selected');
+                            // });
+                            // listItem.classList.add('selected');
+                        }
+
+                        renderTimeList(startIndex, endIndex);
+                        console.log(times[index].realHour + " 누름");
+                    });
+
+                    let barcount = selectedHours.endIndex - selectedHours.startIndex + 1;
+
+                    // 생성된 요소들을 리스트 아이템에 추가
+                    listItem.appendChild(timeText);
+                    listItem.appendChild(button);
+
+                    ulElement.appendChild(listItem)
+                }
+            }
+
+            document.querySelector("button.time-move.time-right").addEventListener("click", () => {
+                indexRange[0]++;
+                indexRange[1]++;
+                renderTimeList(...indexRange);
+            })
+            document.querySelector("button.time-move.time-left").addEventListener("click", () => {
+                indexRange[0]--;
+                indexRange[1]--;
+                renderTimeList(...indexRange);
+            })
+
+        </script>
+        <!-- 날짜 달력기능 스크립트 -->
+        <script>
+            //Date객체를 통해 현재 날짜를 받아와 준 후 그 이후의 날짜에만 예약이 가능하도록 함//
+            var today = new Date();
+            var day = String(today.getDate()).padStart(2, '0');
+            var month = String(today.getMonth() + 1).padStart(2, '0');
+            var year = today.getFullYear();//전체 날짜를 받아와 줌
+
+            var formattedDate = year + '-' + month + '-' + day;//날짜형식으로 포멧팅
+
+            document.getElementById('date').setAttribute('min', formattedDate);
+        </script>
+        <!--지점설정 스크립트 -->
+        <script>
+            function changeImage() {
+                var selectedLocation = document.getElementById("location").value;
+                var imagePath = "";
+                switch (selectedLocation) {
+                    case "김포":
+                        imagePath = "images/locations/김포점.jpg"; // 김포 이미지 경로
+                        break;
+                    case "용인":
+                        imagePath = "images/locations/용인점.jpg"; // 용인 이미지 경로
+                        break;
+                    case "양주옥정":
+                        imagePath = "images/locations/양주점.jpg"; // 양주옥정 이미지 경로
+                        break;
+                    case "화성":
+                        imagePath = "images/locations/화성점.jpg"; // 화성 이미지 경로
+                        break;
+                    case "일산":
+                        imagePath = "images/locations/일산점.jpg"; // 일산 이미지 경로
+                        break;
+                    <!--case문으로 이미지 추가 가능 -->
+                    default:
+                        imagePath = "images/logo/logo.png"; // 기본 이미지 (로고)
+                }
+                document.getElementById("location-image").src = imagePath;
+            }
+        </script>
     </div>
 </body>
 </html>
