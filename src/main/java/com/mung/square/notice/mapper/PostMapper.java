@@ -1,10 +1,10 @@
 package com.mung.square.notice.mapper;
 
 import com.mung.square.notice.domain.Comment;
+import com.mung.square.notice.domain.Post;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import com.mung.square.notice.domain.Post;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

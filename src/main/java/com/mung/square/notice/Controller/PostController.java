@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/support/posts") // 경로 수정
 public class PostController {
@@ -43,16 +41,25 @@ public class PostController {
     }
 
 
-
-    // 게시글 삭제
-    @PostMapping("/deletePost/{postId}")
-    public String deletePost(@PathVariable int postId) {
-        try {
-            postService.deletePost(postId);  // 게시글 삭제
-            return "redirect:/support/notice";  // 삭제 후 목록 페이지로 리다이렉트
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "error";  // 오류 발생 시 에러 페이지로 이동
-        }
+    // 게시글 수정 페이지로 이동
+    @GetMapping("/edit/{postId}")
+    public String editPost(@PathVariable int postId, Model model) {
+        Post post = postService.getPostById(postId);
+        model.addAttribute("post", post);
+        return "board/editPost";  // 게시글 수정 페이지 반환
     }
+
+    // 게시글 수정 처리
+    @PostMapping("/edit/{postId}")
+    public String updatePost(@PathVariable int postId,
+                             @RequestParam String title,
+                             @RequestParam String content) {
+        Post updatedPost = new Post();
+        updatedPost.setPostId(postId);
+        updatedPost.setPostTitle(title);
+        updatedPost.setPostContent(content);
+        postService.updatePost(postId, updatedPost);
+        return "redirect:/support/notice";
+    }
+
 }

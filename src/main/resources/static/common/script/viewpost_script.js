@@ -61,23 +61,9 @@ viewPostAddCommentBtn.addEventListener("click", async () => {
 const viewPostEditButton = document.getElementById("viewPost-edit");
 const viewPostDeleteButton = document.getElementById("viewPost-delete");
 
-// 게시물 수정 기능 (현재는 알림만 표시)
+// 게시물 수정 기능
 viewPostEditButton.addEventListener("click", () => {
-    alert("게시물 수정 기능은 구현 중입니다.");
+    window.location.href = `/support/posts/edit/${postId}`;
 });
 
-// 게시물 삭제 기능
-viewPostDeleteButton.addEventListener("click", async () => {
-    if (confirm("이 게시물을 삭제하시겠습니까?")) {
-        try {
-            // 서버로 게시글 삭제 요청 (DELETE 요청)
-            const response = await fetch(`/mung/posts/delete/${postId}`, { method: 'DELETE' });
-            if (!response.ok) throw new Error('게시물 삭제 실패');
-            alert("게시물이 삭제되었습니다.");
-            // 삭제 후 페이지 리다이렉트 (예: 게시판 목록 페이지로)
-            window.location.href = "/mung/support/notice";
-        } catch (error) {
-            alert('게시물 삭제 중 오류 발생');
-        }
-    }
-});
+

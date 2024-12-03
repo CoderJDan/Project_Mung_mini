@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>게시글 보기</title>
+  <title>멍 스퀘어</title>
+  <link rel="icon" href="/mung/images/logo.png">
   <link rel="stylesheet" href="/mung/common/style/viewpost_style.css"> <!-- CSS 링크 -->
 </head>
 <body>
@@ -27,11 +28,25 @@
   <!-- 게시글 수정 및 삭제 버튼 -->
   <div class="viewpost-actions">
     <button id="edit-post" class="viewpost-action-button">수정</button>
-    <button id="delete-post" class="viewpost-action-button"
-            th:onclick="'deletePost(\'/mung/support/notice/deletePost/' + ${post.postId} + '\')'">
-      삭제
-    </button>
+    <form th:action="@{/support/notice/deletePost/{postId}(postId=${post.postId})}" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+      <button type="submit" class="viewpost-action-button">삭제</button>
+    </form>
   </div>
+
+  <!-- 수정 폼 -->
+  <div id="edit-form" style="display: none;">
+    <form th:action="@{/support/notice/updatePost/{postId}(postId=${post.postId})}" method="post">
+      <label for="edit-title">제목:</label>
+      <input type="text" id="edit-title" name="title" th:value="${post.postTitle}">
+      <br>
+      <label for="edit-content">내용:</label>
+      <textarea id="edit-content" name="content" rows="5" cols="30" th:text="${post.postContent}"></textarea>
+      <br>
+      <button type="submit">수정 완료</button>
+    </form>
+  </div>
+
+
 
   <!-- 댓글 섹션 -->
   <div class="viewpost-comments">
@@ -46,6 +61,13 @@
   </div>
 </div>
 <a href="/mung/support/notice" class="back-btn">목록으로 돌아가기</a>
+
+<script>
+  document.getElementById("edit-post").addEventListener("click", () => {
+    document.getElementById("edit-form").style.display = "block";
+  });
+</script>
+
 
 <script>
   function deletePost(url) {

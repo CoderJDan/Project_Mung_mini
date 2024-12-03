@@ -2,6 +2,7 @@ package com.mung.square.notice.mapper;
 
 import com.mung.square.notice.domain.Comment;
 import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 
 @Mapper  // @Mapper 어노테이션 추가
